@@ -65,18 +65,18 @@ pre{margin:0;max-height:420px;overflow:auto;background:#f8faf8;border:1px solid 
 footer{text-align:center;color:#919a94;font-size:12px;margin-top:30px}footer a{color:#526d5d;text-decoration:none}
 @media(max-width:560px){header{height:64px}.badge{font-size:11px}main{margin-top:52px}.card{padding:12px}.drop{min-height:210px}.result-top{align-items:flex-start;gap:8px;flex-direction:column}}
 </style></head><body>
-<header><div class="brand"><span class="mark">M</span><span>MarkItDown</span></div><span class="badge">Runs on Microsoft MarkItDown</span></header>
+<header><div class="brand"><span class="mark">M</span><span>MarkItDown</span></div><span class="badge">Runs on Microsoft MarkItDown</span></header>
 <main><div class="eyebrow">Document converter</div><h1>Turn files into<br>clean Markdown.</h1>
 <p class="sub">Drop in a document and get Markdown you can copy, download, or use in your next project.</p>
 <section class="card">
-<div class="drop" id="drop"><div class="upload-icon"></div><strong>Drag a file here to get started</strong>
+<div class="drop" id="drop"><div class="upload-icon">+</div><strong>Drag a file here to get started</strong>
 <p>or choose a file from your device</p><button class="choose" id="choose" type="button">Choose file</button>
 <input id="file" type="file" accept=".pdf,.docx,.pptx,.xlsx,.xls,.html,.htm,.csv,.json,.xml,.txt,.md,.epub,.zip,.jpg,.jpeg,.png,.gif,.bmp,.tif,.tiff,.wav,.mp3">
 <div class="selected" id="selected"></div></div>
-<div class="formats">PDF � Word � PowerPoint � Excel � HTML � CSV � JSON � images � audio � and more</div>
+<div class="formats">PDF | Word | PowerPoint | Excel | HTML | CSV | JSON | images | audio | and more</div>
 <div class="notice" id="notice" role="status"></div>
 <div class="result" id="result"><div class="result-top"><strong>Markdown output</strong><div class="actions"><button class="action" id="copy" type="button">Copy</button><button class="action primary" id="download" type="button">Download .md</button></div></div><pre id="output"></pre></div>
-</section><div class="privacy"><span class="dot"></span> Files are processed for conversion and not saved by this app � 4 MB max</div>
+</section><div class="privacy"><span class="dot"></span> Files are processed for conversion and not saved by this app | 4 MB max</div>
 <footer>Powered by <a href="https://github.com/microsoft/markitdown" target="_blank" rel="noreferrer">Microsoft MarkItDown</a></footer></main>
 <script>
 const fileInput=document.querySelector("#file"),drop=document.querySelector("#drop"),selected=document.querySelector("#selected"),notice=document.querySelector("#notice"),result=document.querySelector("#result"),output=document.querySelector("#output");let converted="";
@@ -85,9 +85,9 @@ for(const event of ["dragenter","dragover"])drop.addEventListener(event,e=>{e.pr
 for(const event of ["dragleave","drop"])drop.addEventListener(event,e=>{e.preventDefault();drop.classList.remove("drag")});
 drop.addEventListener("drop",e=>e.dataTransfer.files[0]&&convert(e.dataTransfer.files[0]));
 async function convert(file){notice.className="notice";notice.textContent="";result.style.display="none";selected.textContent=file.name;if(file.size>4*1024*1024){showError("Please choose a file smaller than 4 MB.");return}
-selected.textContent=file.name+" � Converting.";const body=new FormData();body.append("file",file);
+selected.textContent=file.name+" | Converting.";const body=new FormData();body.append("file",file);
 try{const response=await fetch("/api/convert",{method:"POST",body});if(!response.ok){const data=await response.json().catch(()=>({}));throw new Error(data.detail||"Conversion failed. Please try another file.")}
-converted=await response.text();output.textContent=converted;result.style.display="block";selected.textContent=file.name+" � Converted";notice.className="notice ok";notice.textContent="Conversion complete."}
+converted=await response.text();output.textContent=converted;result.style.display="block";selected.textContent=file.name+" | Converted";notice.className="notice ok";notice.textContent="Conversion complete."}
 catch(error){showError(error.message)}}
 function showError(message){notice.className="notice error";notice.textContent=message;selected.textContent=""}
 document.querySelector("#copy").addEventListener("click",async()=>{await navigator.clipboard.writeText(converted);document.querySelector("#copy").textContent="Copied";setTimeout(()=>document.querySelector("#copy").textContent="Copy",1300)});
