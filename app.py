@@ -44,7 +44,7 @@ async def convert(file: UploadFile = File(...)) -> Response:
 PAGE = r'''<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f7f6f2"><title>MarkItDown - convert files to Markdown</title>
+<meta name="theme-color" content="#f7f6f2"><title>MarkItDown | Ali Raza</title>
 <style>
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17221e;background:#f7f6f2}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#dceee4 0,transparent 52%),#f7f6f2}
@@ -65,8 +65,8 @@ pre{margin:0;max-height:420px;overflow:auto;background:#f8faf8;border:1px solid 
 footer{text-align:center;color:#919a94;font-size:12px;margin-top:30px}footer a{color:#526d5d;text-decoration:none}
 @media(max-width:560px){header{height:64px}.badge{font-size:11px}main{margin-top:52px}.card{padding:12px}.drop{min-height:210px}.result-top{align-items:flex-start;gap:8px;flex-direction:column}}
 </style></head><body>
-<header><div class="brand"><span class="mark">M</span><span>MarkItDown</span></div><span class="badge">Runs on Microsoft MarkItDown</span></header>
-<main><div class="eyebrow">Document converter</div><h1>Turn files into<br>clean Markdown.</h1>
+<header><div class="brand"><span class="mark">AR</span><span>Ali Raza</span></div><span class="badge">MarkItDown file converter</span></header>
+<main><div class="eyebrow">A free file converter by Ali Raza</div><h1>Turn files into<br>clean Markdown.</h1>
 <p class="sub">Drop in a document and get Markdown you can copy, download, or use in your next project.</p>
 <section class="card">
 <div class="drop" id="drop"><div class="upload-icon">+</div><strong>Drag a file here to get started</strong>
@@ -77,7 +77,7 @@ footer{text-align:center;color:#919a94;font-size:12px;margin-top:30px}footer a{c
 <div class="notice" id="notice" role="status"></div>
 <div class="result" id="result"><div class="result-top"><strong>Markdown output</strong><div class="actions"><button class="action" id="copy" type="button">Copy</button><button class="action primary" id="download" type="button">Download .md</button></div></div><pre id="output"></pre></div>
 </section><div class="privacy"><span class="dot"></span> Files are processed for conversion and not saved by this app | 4 MB max</div>
-<footer>Powered by <a href="https://github.com/microsoft/markitdown" target="_blank" rel="noreferrer">Microsoft MarkItDown</a></footer></main>
+<footer>Built by <a href="https://aliraza.fr" target="_blank" rel="noreferrer">Ali Raza · aliraza.fr</a> | Powered by <a href="https://github.com/microsoft/markitdown" target="_blank" rel="noreferrer">Microsoft MarkItDown</a></footer></main>
 <script>
 const fileInput=document.querySelector("#file"),drop=document.querySelector("#drop"),selected=document.querySelector("#selected"),notice=document.querySelector("#notice"),result=document.querySelector("#result"),output=document.querySelector("#output");let converted="";
 document.querySelector("#choose").addEventListener("click",()=>fileInput.click());fileInput.addEventListener("change",()=>fileInput.files[0]&&convert(fileInput.files[0]));
