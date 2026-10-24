@@ -1,0 +1,5 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+markitdown[pdf,docx,pptx,xlsx,xls,audio-transcription]>=0.1.4
+python-multipart>=0.0.20
+
