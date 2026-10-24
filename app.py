@@ -28,7 +28,7 @@ async def home() -> str:
 @app.get("/robots.txt", include_in_schema=False)
 async def robots() -> Response:
     return Response(
-        content="User-agent: *\\nAllow: /\\nSitemap: https://markitdown.aliraza.fr/sitemap.xml\\n",
+        content="User-agent: *\nAllow: /\nSitemap: https://markitdown.aliraza.fr/sitemap.xml\n",
         media_type="text/plain; charset=utf-8",
     )
 
