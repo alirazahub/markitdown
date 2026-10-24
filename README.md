@@ -8,7 +8,7 @@ Requires Python 3.10-3.14.
 
 ```powershell
 py -m venv .venv
-.\\.venv\\Scripts\\Activate.ps1
+.\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 uvicorn app:app --reload
 ```
@@ -26,4 +26,5 @@ Uploads are limited to 4 MB to stay below Vercel Functions' 4.5 MB request-body 
 ## Privacy
 
 This app does not persist uploaded files or conversion results; the file is held in request memory while converting. Review MarkItDown's security guidance before accepting uploads from untrusted users.
+
 
