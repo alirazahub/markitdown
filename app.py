@@ -25,6 +25,37 @@ async def home() -> str:
     return PAGE
 
 
+@app.get("/robots.txt", include_in_schema=False)
+async def robots() -> Response:
+    return Response(
+        content="User-agent: *\\nAllow: /\\nSitemap: https://markitdown.aliraza.fr/sitemap.xml\\n",
+        media_type="text/plain; charset=utf-8",
+    )
+
+
+@app.get("/sitemap.xml", include_in_schema=False)
+async def sitemap() -> Response:
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        '<url><loc>https://markitdown.aliraza.fr/</loc></url>'
+        '</urlset>'
+    )
+    return Response(content=xml, media_type="application/xml; charset=utf-8")
+
+
+@app.get("/favicon.svg", include_in_schema=False)
+async def favicon() -> Response:
+    svg = (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">'
+        '<rect width="36" height="36" rx="11" fill="#153f32"/>'
+        '<path d="M10 6.75h10l6 6V29.25H10V6.75Z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>'
+        '<path d="M20 7v6h6M18 16.5v8m-3.5-3.5L18 24.5l3.5-3.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
+        '</svg>'
+    )
+    return Response(content=svg, media_type="image/svg+xml")
+
+
 class URLRequest(BaseModel):
     url: str = Field(min_length=8, max_length=2048)
 
@@ -180,7 +211,22 @@ def convert_url(payload: URLRequest) -> Response:
 PAGE = r'''<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f7f6f2"><title>MarkItDown by Ali Raza</title>
+<meta name="theme-color" content="#f7f6f2">
+<title>Free File to Markdown Converter | MarkItDown by Ali Raza</title>
+<meta name="description" content="Convert PDF, Word, PowerPoint, Excel, HTML, CSV and more to Markdown online. Upload a file or paste a public HTTPS link. Free, no account, 4 MB max.">
+<link rel="canonical" href="https://markitdown.aliraza.fr/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MarkItDown by Ali Raza">
+<meta property="og:title" content="Free File to Markdown Converter | MarkItDown by Ali Raza">
+<meta property="og:description" content="Convert documents and other supported files to Markdown online. Upload a file or use a public HTTPS link. Free and simple.">
+<meta property="og:url" content="https://markitdown.aliraza.fr/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Free File to Markdown Converter | MarkItDown by Ali Raza">
+<meta name="twitter:description" content="Convert documents and other supported files to Markdown online. Upload a file or use a public HTTPS link.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"MarkItDown by Ali Raza","alternateName":"MarkItDown","url":"https://markitdown.aliraza.fr/"},{"@type":"SoftwareApplication","name":"MarkItDown by Ali Raza","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","url":"https://markitdown.aliraza.fr/","description":"Free online file to Markdown converter for supported documents and file formats.","author":{"@type":"Person","name":"Ali Raza","url":"https://aliraza.fr"},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}]}
+</script>
 <style>
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17221e;background:#f7f6f2}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#dceee4 0,transparent 52%),#f7f6f2}
@@ -198,12 +244,13 @@ input[type=file]{display:none}.url-import{margin-top:18px;padding-top:17px;borde
 pre{margin:0;max-height:420px;overflow:auto;background:#f8faf8;border:1px solid #e9ede8;border-radius:12px;padding:16px;white-space:pre-wrap;overflow-wrap:anywhere;color:#34463c;font:13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}
 .notice{display:none;margin-top:14px;border-radius:10px;padding:11px 13px;font-size:13px}.notice.error{display:block;background:#fff3f0;color:#a43c28}.notice.ok{display:block;background:#edf7ef;color:#286141}
 .privacy{display:flex;justify-content:center;align-items:center;gap:7px;color:#758078;font-size:12px;margin:19px 0 0}.dot{width:7px;height:7px;border-radius:50%;background:#50a06e}
+.seo-content{max-width:840px;margin:0 auto 46px;color:#4d5e54;font-size:14px;line-height:1.75}.seo-content h2{color:#1c2e25;font-size:24px;letter-spacing:-.035em;margin:0 0 10px}.seo-content h3{color:#25382e;font-size:16px;margin:24px 0 7px}.seo-content p{margin:0 0 12px}.seo-content ol{padding-left:22px}.seo-content li{padding-left:4px;margin:5px 0}.seo-content a{color:#267354}.seo-content details{border-top:1px solid #e7e8e1;padding:12px 0}.seo-content details:last-child{border-bottom:1px solid #e7e8e1}.seo-content summary{color:#25382e;font-weight:650;cursor:pointer}.seo-content details p{margin:8px 0 0}
 footer{text-align:center;color:#919a94;font-size:12px;margin-top:30px}footer a{color:#526d5d;text-decoration:none}
 @media(max-width:560px){header{height:64px}.badge{font-size:11px}main{margin-top:52px}.card{padding:12px}.drop{min-height:210px}.url-row{flex-direction:column}.url-button{padding:11px}.result-top{align-items:flex-start;gap:8px;flex-direction:column}}
 </style></head><body>
 <header><div class="brand"><span class="mark" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 6.75h10l6 6V29.25H10V6.75Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M20 7v6h6M18 16.5v8m-3.5-3.5L18 24.5l3.5-3.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="brand-copy"><strong>MarkItDown</strong><a href="https://aliraza.fr" target="_blank" rel="noreferrer">by Ali Raza</a></span></div><span class="badge">Runs on Microsoft MarkItDown</span></header>
 <main><div class="eyebrow">Document converter</div><h1>Turn files into<br>clean Markdown.</h1>
-<p class="sub">Drop in a document and get Markdown you can copy, download, or use in your next project.</p>
+<p class="sub">Convert PDFs, Word documents, PowerPoint, Excel and other supported files to Markdown. Upload a file or paste a public HTTPS link.</p>
 <section class="card">
 <div class="drop" id="drop"><div class="upload-icon">+</div><strong>Drag a file here to get started</strong>
 <p>or choose a file from your device</p><button class="choose" id="choose" type="button">Choose file</button>
@@ -214,6 +261,19 @@ footer{text-align:center;color:#919a94;font-size:12px;margin-top:30px}footer a{c
 <div class="notice" id="notice" role="status"></div>
 <div class="result" id="result"><div class="result-top"><strong>Markdown output</strong><div class="actions"><button class="action" id="copy" type="button">Copy</button><button class="action primary" id="download" type="button">Download .md</button></div></div><pre id="output"></pre></div>
 </section><div class="privacy"><span class="dot"></span> Files are processed for conversion and not saved by this app | 4 MB max</div>
+<section class="seo-content" aria-labelledby="about-heading">
+<h2 id="about-heading">Free online file to Markdown converter</h2>
+<p>MarkItDown by Ali Raza turns supported files into Markdown you can copy or download. Use it to extract readable text and structure from documents without installing a desktop converter or creating an account.</p>
+<h3>Convert documents and more</h3>
+<p>Upload a file from your device or enter a direct HTTPS link to a publicly accessible file. The converter supports common formats such as PDF, DOCX, PPTX, XLSX, XLS, HTML, CSV, JSON, XML, TXT, Markdown, EPUB, images, and audio. The maximum file size is 4 MB.</p>
+<h3>How to convert a file</h3>
+<ol><li>Choose a file or paste a public HTTPS file link.</li><li>Select convert and wait for the Markdown output.</li><li>Copy the result or download it as a Markdown file.</li></ol>
+<h3>About this tool</h3>
+<p>This is an independent web interface by <a href="https://aliraza.fr">Ali Raza</a>, powered by <a href="https://github.com/microsoft/markitdown" target="_blank" rel="noreferrer">Microsoft MarkItDown</a>. It is free to use and does not require an account.</p>
+<details><summary>Can I convert a file using its URL?</summary><p>Yes. Use a direct HTTPS link that anyone can access. Links that require a sign-in or open a web page instead of a file may not work.</p></details>
+<details><summary>What is the maximum file size?</summary><p>Files must be smaller than 4 MB.</p></details>
+<details><summary>Do I need to install software?</summary><p>No. Use the converter in your browser to upload a file or provide a public HTTPS file link.</p></details>
+</section>
 <footer>MarkItDown by <a href="https://aliraza.fr" target="_blank" rel="noreferrer">Ali Raza · aliraza.fr</a> | Powered by <a href="https://github.com/microsoft/markitdown" target="_blank" rel="noreferrer">Microsoft MarkItDown</a></footer></main>
 <script>
 const fileInput=document.querySelector("#file"),drop=document.querySelector("#drop"),selected=document.querySelector("#selected"),notice=document.querySelector("#notice"),result=document.querySelector("#result"),output=document.querySelector("#output");let converted="";
