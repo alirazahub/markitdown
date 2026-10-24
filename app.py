@@ -44,12 +44,12 @@ async def convert(file: UploadFile = File(...)) -> Response:
 PAGE = r'''<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f7f6f2"><title>MarkItDown | Ali Raza</title>
+<meta name="theme-color" content="#f7f6f2"><title>MarkItDown by Ali Raza</title>
 <style>
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17221e;background:#f7f6f2}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#dceee4 0,transparent 52%),#f7f6f2}
 header{height:76px;border-bottom:1px solid #e7e8e1;display:flex;align-items:center;justify-content:space-between;padding:0 max(24px,calc((100vw - 1120px)/2))}
-.brand{display:flex;gap:11px;align-items:center;font-weight:750;letter-spacing:-.03em}.mark{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#153f32;color:white;font-size:15px}
+.brand{display:flex;gap:11px;align-items:center;font-weight:750;letter-spacing:-.03em;color:inherit;text-decoration:none}.mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#153f32;color:white;box-shadow:0 3px 9px #153f3226}.mark svg{display:block;width:25px;height:25px}
 .badge{font-size:12px;color:#597064;border:1px solid #dce4dc;border-radius:999px;padding:7px 11px;background:#ffffff80}
 main{width:min(100% - 40px,840px);margin:76px auto 64px}.eyebrow{color:#267354;font-size:12px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;text-align:center}
 h1{text-align:center;font-size:clamp(38px,6vw,62px);letter-spacing:-.065em;line-height:1.04;margin:17px 0 15px}.sub{text-align:center;color:#65736c;line-height:1.65;font-size:16px;margin:0 auto 38px;max-width:590px}
@@ -65,8 +65,8 @@ pre{margin:0;max-height:420px;overflow:auto;background:#f8faf8;border:1px solid 
 footer{text-align:center;color:#919a94;font-size:12px;margin-top:30px}footer a{color:#526d5d;text-decoration:none}
 @media(max-width:560px){header{height:64px}.badge{font-size:11px}main{margin-top:52px}.card{padding:12px}.drop{min-height:210px}.result-top{align-items:flex-start;gap:8px;flex-direction:column}}
 </style></head><body>
-<header><div class="brand"><span class="mark">AR</span><span>Ali Raza</span></div><span class="badge">MarkItDown file converter</span></header>
-<main><div class="eyebrow">A free file converter by Ali Raza</div><h1>Turn files into<br>clean Markdown.</h1>
+<header><div class="brand"><span class="mark" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 6.75h10l6 6V29.25H10V6.75Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M20 7v6h6M18 16.5v8m-3.5-3.5L18 24.5l3.5-3.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>MarkItDown</span></div><a class="badge" href="https://aliraza.fr" target="_blank" rel="noreferrer">by Ali Raza</a></header>
+<main><div class="eyebrow">Document converter</div><h1>Turn files into<br>clean Markdown.</h1>
 <p class="sub">Drop in a document and get Markdown you can copy, download, or use in your next project.</p>
 <section class="card">
 <div class="drop" id="drop"><div class="upload-icon">+</div><strong>Drag a file here to get started</strong>
@@ -77,7 +77,7 @@ footer{text-align:center;color:#919a94;font-size:12px;margin-top:30px}footer a{c
 <div class="notice" id="notice" role="status"></div>
 <div class="result" id="result"><div class="result-top"><strong>Markdown output</strong><div class="actions"><button class="action" id="copy" type="button">Copy</button><button class="action primary" id="download" type="button">Download .md</button></div></div><pre id="output"></pre></div>
 </section><div class="privacy"><span class="dot"></span> Files are processed for conversion and not saved by this app | 4 MB max</div>
-<footer>Built by <a href="https://aliraza.fr" target="_blank" rel="noreferrer">Ali Raza · aliraza.fr</a> | Powered by <a href="https://github.com/microsoft/markitdown" target="_blank" rel="noreferrer">Microsoft MarkItDown</a></footer></main>
+<footer>MarkItDown by <a href="https://aliraza.fr" target="_blank" rel="noreferrer">Ali Raza · aliraza.fr</a> | Powered by <a href="https://github.com/microsoft/markitdown" target="_blank" rel="noreferrer">Microsoft MarkItDown</a></footer></main>
 <script>
 const fileInput=document.querySelector("#file"),drop=document.querySelector("#drop"),selected=document.querySelector("#selected"),notice=document.querySelector("#notice"),result=document.querySelector("#result"),output=document.querySelector("#output");let converted="";
 document.querySelector("#choose").addEventListener("click",()=>fileInput.click());fileInput.addEventListener("change",()=>fileInput.files[0]&&convert(fileInput.files[0]));
